@@ -123,3 +123,27 @@ th{
 <td> 6.2 </td>
 </tr>
 </tbody></table>
+
+#!/usr/bin/python3
+
+import cgitb
+cgitb.enable
+
+from helper import show_data
+
+
+import sqlite3
+sqlite = sqlite3.connect('database/myfirstdatabase.db')
+sql = sqlite.cursor()
+
+data = sql.execute("select * from Movies order by rating desc")
+show_data(data)
+
+sql.execute("""insert into Movies values ('Step Brothers', 6.9),
+            ('Spider-Man 3', 6.2),
+            ('Meet The Robinsins', 6.8),
+            ('The Conjuring', 7.5), 
+            ('Creed II', 7.1)""")
+
+data_two = sql.execute("select * from Movies order by rating desc")
+show_data(data_two)
