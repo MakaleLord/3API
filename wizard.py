@@ -27,35 +27,26 @@ th{
 }
 </style>
 
-<table><tbody>
-<tr>
-<th> name </th>
-<th> wizardPoints </th>
-</tr>
-</tbody></table>
-<table><tbody>
-<tr>
-<th> name </th>
-<th> wizardPoints </th>
-</tr>
-<tr>
-<td> Yuki Jones </td>
-<td> 16070 </td>
-</tr>
-<tr>
-<td> Abdullah Shah </td>
-<td> 14972 </td>
-</tr>
-<tr>
-<td> Makale Lord </td>
-<td> 14680 </td>
-</tr>
-<tr>
-<td> Stinger Holland </td>
-<td> 13345 </td>
-</tr>
-<tr>
-<td> Yashas Mushrif </td>
-<td> 11675 </td>
-</tr>
-</tbody></table>
+#!/usr/bin/python3
+
+import cgitb
+cgitb.enable
+
+from helper import show_data
+
+
+import sqlite3
+sqlite = sqlite3.connect('../database/myfirstdatabase.db')
+sql = sqlite.cursor()
+
+data = sql.execute("select * from Codewizards order by name desc")
+show_data(data)
+
+sql.execute("""insert into Codewizards values ('Makale Lord', 14680),
+            ('Yuki Jones', 16070),
+            ('Abdullah Shah', 14972),
+            ('Yashas Mushrif', 11675), 
+            ('Stinger Holland', 13345)""")
+
+data_two = sql.execute("select * from Codewizards order by Wizardpoints desc")
+show_data(data_two)
